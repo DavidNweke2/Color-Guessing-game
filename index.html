@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Game</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+</head>
+<body>
+  <h1>
+    The Great <span id="colorDisplay">RGB</span>  Color Game
+  </h1>
+  <div id="container">
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+  </div>
+  
+</body>
+</html>
+
+<script>
+  var colors = [
+  "rgb(255, 0, 0)",
+  "rgb(255, 255, 0)",
+  "rgb(0, 255, 0)",
+  "rgb(0, 255, 255)",
+  "rgb(0, 0, 255)",
+  "rgb(255, 0, 255)",
+  ];
+
+  var squares = document.querySelectorAll(".square");
+  var pickedColor = colors[3];
+  var colorDisplay =document.getElementById("colorDisplay");
+
+  colorDisplay.textContent = pickedColor;
+
+  for(var i = 0; i < squares.length; i++){
+    // Add initial colors to squares
+    squares[i].style.backgroundColor = colors[i];
+
+    squares[i].addEventListener("click", function(){
+      // Grab color of clicked square
+    })
+  }
+
+
+  // for (let square of squares){  
+  //   square.style.backgroundColor = colors;
+  // }
+</script>
