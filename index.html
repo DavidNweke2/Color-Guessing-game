@@ -10,8 +10,17 @@
 </head>
 <body>
   <h1>
-    The Great <span id="colorDisplay">RGB</span>  Color Game
+    The Great <br>
+     <span id="colorDisplay">RGB</span> <br>
+      Color Game
   </h1>
+  <div id="strip">
+    <button id="reset">New Colors</button>
+    <span id="message"></span>
+    <button class="mode">Easy</button>
+    <button  class="mode selected">Hard</button>
+  </div>
+
   <div id="container">
     <div class="square"></div>
     <div class="square"></div>
@@ -19,38 +28,133 @@
     <div class="square"></div>
     <div class="square"></div>
     <div class="square"></div>
-  </div>
+  </div> 
   
 </body>
 </html>
 
 <script>
-  var colors = [
-  "rgb(255, 0, 0)",
-  "rgb(255, 255, 0)",
-  "rgb(0, 255, 0)",
-  "rgb(0, 255, 255)",
-  "rgb(0, 0, 255)",
-  "rgb(255, 0, 255)",
-  ];
+var numSquares = 6;
+var colors = [];
+var pickedColor;
+var squares = document.querySelectorAll(".square");
+var colorDisplay =document.getElementById("colorDisplay");
+var messageDisplay = document.querySelector("#message")
+var h1 = document.querySelector("h1");
+var resetButton = document.querySelector("#reset")
+var modeButtons = document.querySelectorAll(".mode")
 
-  var squares = document.querySelectorAll(".square");
-  var pickedColor = colors[3];
-  var colorDisplay =document.getElementById("colorDisplay");
 
-  colorDisplay.textContent = pickedColor;
+init();
+
+function init(){
+  // mode buttons for event listeners
+  for(var i = 0; i < modeButtons.length; i++){
+    modeButtons[i].addEventListener("click", function(){
+      modeButtons[0].classList.remove("selected");
+      modeButtons[1].classList.remove("selected");
+      this.classList.add("selected");
+
+      // Using the tinary operator for a simple if statement
+      this.textContent === "Easy" ? numSquares = 3: numSquares = 6;
+      // calling the reset function
+      reset();
+    });
+  } 
 
   for(var i = 0; i < squares.length; i++){
-    // Add initial colors to squares
-    squares[i].style.backgroundColor = colors[i];
-
+    // add click listeners
     squares[i].addEventListener("click", function(){
       // Grab color of clicked square
-    })
+      var clickedColor = this.style.backgroundColor;
+      // compare color to picked color
+      if(clickedColor === pickedColor){
+        messageDisplay.textContent = "Correct!"
+        changeColors(clickedColor);
+        h1.style.backgroundColor = clickedColor;
+        resetButton.textContent = "Play Again?"
+      } else {
+        this.style.backgroundColor = "#0f0f0f";
+        messageDisplay.textContent = "Try Again!"
+      }
+    }) 
   }
 
+  reset();
+}
 
-  // for (let square of squares){  
-  //   square.style.backgroundColor = colors;
-  // }
+function reset(){
+  // generate all new colors
+  colors = generateRandomColors(numSquares);
+  // pick a new random color from array
+  pickedColor = pickColor();
+  // change colorDisplay to match picked Color
+  colorDisplay.textContent = pickedColor;
+  // remove the textContent (Correct) after winning the game
+  messageDisplay.textContent = "";
+  // change text back to "New color" when user clicks play again
+  reset.textContent = "New Colors"
+  // change colors of squares
+  for(var i = 0; i < squares.length; i++){
+    if (colors[i]){
+      squares[i].style.display = "block";
+      squares[i].style.backgroundColor = colors[i];
+    } else {
+      squares[i].style.display = "none";
+    };
+  };
+  h1.style.backgroundColor = "steelblue";
+}
+
+resetButton.addEventListener("click", function(){
+  reset();
+});
+
+
+
+
+
+
+
+function changeColors(color){
+  // loop through all squares
+  for (var i = 0; i < squares.length; i++){
+    // change each color to match given color
+    squares[i].style.backgroundColor = color;
+  }
+}
+
+// To pick a random color
+function pickColor(){
+  var randomNum = Math.floor(Math.random() * colors.length);
+  return colors[randomNum];
+}
+
+// Generate random color
+function generateRandomColors(num){
+  // make an array
+  var arr = []
+  // add num random colors to array
+  for(var i = 0; i < num; i++){
+    // get random color and push into arr
+    arr.push(randomColor())
+  }
+  // return that array
+  return arr;
+}
+
+function randomColor(){
+  // pick a "red" from 0-255
+  var r = Math.floor(Math.random() * 256);
+  // pick a "green" from 0-255
+  var g = Math.floor(Math.random() * 256);
+  // pick a "blue" from 0-255
+  var b = Math.floor(Math.random() * 256);
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+
+// for (let square of squares){  
+//   square.style.backgroundColor = colors;
+// }
 </script>

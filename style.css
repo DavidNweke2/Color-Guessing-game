@@ -1,10 +1,25 @@
 *{
   margin: 0;
   padding: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: normal;
+  text-transform: uppercase;
 }
 
 body{
   background-color: #0f0f0f;
+}
+
+h1{
+  text-align: center;
+  line-height: 1.1;
+  padding: 15px 0;
+  color: #fff;
+  background-color: steelblue;
+}
+
+#colorDisplay{
+  font-size: 150%;
 }
 
 #container{
@@ -12,6 +27,7 @@ body{
   flex-wrap: wrap;
   max-width: 600px;
   margin: 0 auto;
+  padding-top: 2%;
 }
 
 .square{
@@ -19,12 +35,46 @@ body{
   background: purple;
   padding-bottom: 30%;
   margin: 1.66%;
+  border-radius: 15%;
+  transition: background 0.6s;
+  -webkit-transition: background 0.6s;
+  -moz-transition: background 0.6s;
 }
 
-h1{
-  color: #fff;
+#strip{
+  background-color: white;
+  
+  height: 30px;
+  text-align: center;
 }
 
-.fr{
-  background-color: blue;
+.selected{
+  background-color:steelblue;
+  color: white;
 }
+
+button{
+  border-style: none; 
+  background-color: none;
+  outline: none;
+  height: 100%;
+  color: steelblue;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: inherit;
+  padding: 0 5px;
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+}
+
+button:hover{
+  background-color: steelblue;
+  color: white;
+}
+#message {
+  display: inline-block;
+  width: 20%;
+}
+
+
